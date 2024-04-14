@@ -90,17 +90,17 @@ int main(void)
   MX_GPIO_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-  	uint32_t adcSum = 0;
-	float average = 0.0f;
-	float voltage = 0.0f;
-	int adcReadingsCount = 60;
-	volatile HAL_StatusTypeDef adcPoolResult;
+  uint32_t adcSum = 0;
+  float average = 0.0f;
+  float voltage = 0.0f;
+  int adcReadingsCount = 60;
+  volatile HAL_StatusTypeDef adcPoolResult;
 
-	while (1)
+  while (1)
+  {
+	adcSum = 0;
+	for (int i = 0; i < adcReadingsCount; i++)
 	{
-	  adcSum = 0;
-	  for (int i = 0; i < adcReadingsCount; i++)
-	  {
 		HAL_ADC_Start(&hadc1);
 		adcPoolResult = HAL_ADC_PollForConversion(&hadc1, 10);
 
@@ -125,8 +125,6 @@ int main(void)
 		  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
 		  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
 		}
-
-	  // Далі використовуйте значення voltage для подальших дій
 	}
   /* USER CODE END 3 */
 }
